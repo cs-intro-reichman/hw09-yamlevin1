@@ -50,13 +50,13 @@ public class List {
         if (size == 0) {
             return "()";
         }
-        String res = "(";
+        String result = "(";
         Node current = first;
         while (current != null) {
-            res += current.toString() + " ";
+            result += current.toString() + " ";
             current = current.next;
         }
-        return res.substring(0, res.length() - 1) + ")";
+        return result.substring(0, result.length() - 1) + ")";
     }
 
     /**
