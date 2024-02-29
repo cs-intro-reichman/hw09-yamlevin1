@@ -51,7 +51,7 @@ public class List {
         String result = "(";
         Node current = first;
         while (current != null) {
-            result += current.cp.toString();
+            result += current.toString() + " ";
             current = current.next;
         }
         return result + ")";
@@ -125,19 +125,11 @@ public class List {
      * throws an IndexOutOfBoundsException.
      */
     public CharData get(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("No such index exists");
         }
-        int currentIndex = 0;
-        Node current = first;
-        while (current != null) {
-            if (currentIndex == index) {
-                return current.cp;
-            }
-            current = current.next;
-            currentIndex++;
-        }
-        return first.cp;
+        CharData[] list = toArray();
+        return list[index];
     }
 
     /**
