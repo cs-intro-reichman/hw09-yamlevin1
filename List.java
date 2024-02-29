@@ -37,24 +37,26 @@ public class List {
      * list.
      */
     public void addFirst(char chr) {
-        CharData firstCharData = new CharData(chr);
-        Node firstNode = new Node(firstCharData, first);
-        first = firstNode;
+        // Your code goes here
+        CharData newCharData = new CharData(chr);
+        Node newNode = new Node(newCharData, first);
+        first = newNode;
         size++;
     }
 
     /** GIVE Textual representation of this list. */
     public String toString() {
+        // Your code goes here
         if (size == 0) {
             return "()";
         }
-        String result = "(";
+        String res = "(";
         Node current = first;
         while (current != null) {
-            result += current.toString() + " ";
+            res += current.toString() + " ";
             current = current.next;
         }
-        return result + ")";
+        return res.substring(0, res.length() - 1) + ")";
     }
 
     /**
@@ -63,10 +65,11 @@ public class List {
      * or -1 if there is no such object in this list.
      */
     public int indexOf(char chr) {
+        // Your code goes here
         Node current = first;
         int index = 0;
         while (current != null) {
-            if (chr == current.cp.chr) {
+            if (current.cp.chr == chr) {
                 return index;
             }
             current = current.next;
@@ -81,17 +84,16 @@ public class List {
      * given chr to the beginning of this list.
      */
     public void update(char chr) {
+        // Your code goes here
         Node current = first;
-        boolean isCharExists = false;
         while (current != null) {
-            if (chr == current.cp.chr) {
+            if (current.cp.chr == chr) {
                 current.cp.count++;
-                isCharExists = true;
                 break;
             }
             current = current.next;
         }
-        if (isCharExists == false) {
+        if (current == null) {
             addFirst(chr);
         }
     }
@@ -102,21 +104,24 @@ public class List {
      * true. Otherwise, returns false.
      */
     public boolean remove(char chr) {
+        // Your code goes here
         Node prev = null;
         Node current = first;
-        while (current != null) {
-            if (current.cp.chr == chr && prev != null) {
-                prev.next = current.next;
-                return true;
-            }
-            if (current.cp.chr == chr && prev == null) {
-                first = first.next;
-                return true;
-            }
+        while (current != null && current.cp.chr != chr) {
             prev = current;
             current = current.next;
         }
-        return false;
+
+        if (current == null)
+            return false;
+
+        if (prev == null) {
+            first = first.next;
+        } else {
+            prev.next = current.next;
+        }
+        size--;
+        return true;
     }
 
     /**
@@ -125,8 +130,9 @@ public class List {
      * throws an IndexOutOfBoundsException.
      */
     public CharData get(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("No such index exists");
+        // Your code goes here
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("illegal index " + index);
         }
         CharData[] list = toArray();
         return list[index];
